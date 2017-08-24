@@ -1,18 +1,18 @@
 #!/bin/bash
 
 #Request sudo permissions
-if [[ $UID != 0 ]]; then
-    echo "Please run this script with sudo:"
-    echo "sudo $0 $*"
-    exit 1
-fi
+#if [[ $UID != 0 ]]; then
+#    echo "Please run this script with sudo:"
+#    echo "sudo $0 $*"
+#   exit 1
+#fi
 
 #Get prerequisites
 
 #force update
 
-sudo apt-get update 
-sudo apt-get install supervisor xvfb fluxbox x11vnc websockify
+#sudo apt-get update 
+sudo apt install -y supervisor xvfb fluxbox x11vnc websockify
 
 #Copy supervisord configuration to proper configuration directory
 cp supervisord.conf ${HOME}/.config/supervisord.conf
@@ -38,15 +38,17 @@ sudo cp x11vncrun.sh /opt/c9vnc/x11vncrun.sh
 #Clone noVNC into proper /opt/ directory
 git clone git://github.com/kanaka/noVNC /opt/noVNC/
 
+x11vnc -storepasswd
+
 #Set up password for x11vnc
-echo
-echo
-while true; do
-    read -p "Do you wish to set password for x11vnc? (not recommended for public workspaces!) " yn
-    case $yn in
+#echo
+#echo
+#while true; do
+#    read -p "Do you wish to set password for x11vnc? (not recommended for public workspaces!) " yn
+#    case $yn in
 #        [Yy]* ) x11vnc -storepasswd; break;; Coming later
-        [Yy]* ) (echo Coming later); break;;
-        [Nn]* ) exit;;
-        * ) echo "Please answer yes or no.";;
-    esac
-done
+#        [Yy]* ) (echo Coming later); break;;
+#        [Nn]* ) exit;;
+#        * ) echo "Please answer yes or no.";;
+#    esac
+#done
